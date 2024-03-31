@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 
 export function Login() {
 	return (
-		<main>
+		<main className='h-screen justify-normal items-center flex'>
 			<Card className='max-w-sm mx-auto'>
 				<CardHeader>
 					<CardTitle className='text-2xl'>Login</CardTitle>

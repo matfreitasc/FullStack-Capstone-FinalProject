@@ -114,20 +114,21 @@ const Header = () => {
 					</div>
 				</form>
 				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						{user ? (
+					{user ? (
+						<DropdownMenuTrigger asChild>
 							<Button variant='secondary' size='icon' className='rounded-full'>
 								<CircleUser className='w-5 h-5' />
 								<span className='sr-only'>Toggle user menu</span>
 							</Button>
-						) : (
-							<Link
-								to='/login'
-								className='text-muted-foreground hover:text-foreground'>
-								Login
-							</Link>
-						)}
-					</DropdownMenuTrigger>
+						</DropdownMenuTrigger>
+					) : (
+						<Link
+							to='/login'
+							className='text-muted-foreground hover:text-foreground'>
+							Login
+						</Link>
+					)}
+
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
 						<DropdownMenuSeparator />
