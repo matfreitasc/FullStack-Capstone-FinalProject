@@ -7,19 +7,18 @@ import {
 	ProductsDashboard,
 	Login,
 	SignUp,
-	Error,
 	Home,
 } from '@/pages'
 
-import App from './App'
+import Layout from './Layout'
 
 const routes = createBrowserRouter([
 	{
 		path: '/',
-		element: <App />,
-		errorElement: <Error />,
+		element: <Layout />,
+		errorElement: <Layout />,
 		children: [
-			{ path: 'home', element: <Home /> },
+			{ element: <Home />, index: true },
 			{ path: 'product', element: <About /> },
 			{ path: 'about', element: <About /> },
 			{

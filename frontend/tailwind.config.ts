@@ -1,14 +1,11 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from 'tailwindcss'
+
 import tailwindcssAnimate from 'tailwindcss-animate'
+import tailwindcssDebugScreen from 'tailwindcss-debug-screens'
 
 export default {
 	darkMode: ['class'],
-	content: [
-		'./pages/**/*.{ts,tsx}',
-		'./components/**/*.{ts,tsx}',
-		'./app/**/*.{ts,tsx}',
-		'./src/**/*.{ts,tsx}',
-	],
+	content: ['./src/**/*.{html,js,jsx,ts,tsx}', './index.html'],
 	prefix: '',
 	theme: {
 		container: {
@@ -75,5 +72,5 @@ export default {
 			},
 		},
 	},
-	plugins: [tailwindcssAnimate],
-}
+	plugins: [tailwindcssAnimate, tailwindcssDebugScreen],
+} satisfies Config

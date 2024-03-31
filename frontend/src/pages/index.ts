@@ -7,7 +7,7 @@ export * from './Settings'
 export * from './Product'
 
 // Error pages
-export * from './error/error'
+// export * from './error/error'
 
 // Auth pages
 export * from './auth/Login'
