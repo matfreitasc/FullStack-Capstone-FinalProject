@@ -1,16 +1,11 @@
 import { Link, Outlet } from 'react-router-dom'
 import {
-	File,
 	Home,
 	LineChart,
-	ListFilter,
-	MoreHorizontal,
 	Package,
 	Package2,
 	PanelLeft,
-	PlusCircle,
 	Search,
-	Settings,
 	ShoppingCart,
 	Users2,
 } from 'lucide-react'
@@ -36,7 +31,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export function Dashboard() {
+const AdminDashboard = () => {
 	return (
 		<div className='flex flex-col w-full min-h-screen bg-muted/40'>
 			<Sidebar />
@@ -147,3 +142,5 @@ export function Dashboard() {
 		</div>
 	)
 }
+
+export { AdminDashboard }

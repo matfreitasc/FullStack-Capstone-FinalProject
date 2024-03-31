@@ -1,19 +1,27 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Settings from './pages/Settings'
-import Profile from './pages/Profile'
-import Dashboard from './pages/Dashboard'
-import { Dashboard as AdminDashboard } from './pages/admin/Dashboard'
-import About from './pages/About'
+import {
+	Settings,
+	Profile,
+	AdminDashboard,
+	About,
+	ProductsDashboard,
+	Login,
+	SignUp,
+	Error,
+	Home,
+} from '@/pages'
+
 import App from './App'
-import ProductsDashboard from './pages/admin/products/ProductsDashboard'
 
 const routes = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
+		errorElement: <Error />,
 		children: [
+			{ path: 'home', element: <Home /> },
+			{ path: 'product', element: <About /> },
 			{ path: 'about', element: <About /> },
-			{ path: 'dashboard', element: <Dashboard /> },
 			{
 				path: 'profile',
 				element: <Profile />,
@@ -25,6 +33,15 @@ const routes = createBrowserRouter([
 				],
 			},
 		],
+	},
+	{
+		path: 'login',
+		element: <Login />,
+	},
+
+	{
+		path: 'signup',
+		element: <SignUp />,
 	},
 	{
 		path: 'admin',

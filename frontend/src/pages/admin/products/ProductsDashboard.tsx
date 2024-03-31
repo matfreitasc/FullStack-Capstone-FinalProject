@@ -160,4 +160,4 @@ const ProductsDashboard = () => {
 	)
 }
 
-export default ProductsDashboard
+export { ProductsDashboard }
