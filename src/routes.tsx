@@ -45,11 +45,13 @@ const routes = createBrowserRouter([
 	{
 		path: 'admin',
 		element: <AdminDashboard />,
+		errorElement: <div>Ops there was an error</div>,
 		children: [
 			{
 				path: 'dashboard',
 				children: [
 					{
+						index: true,
 						path: 'products',
 						element: <ProductsDashboard />,
 					},
