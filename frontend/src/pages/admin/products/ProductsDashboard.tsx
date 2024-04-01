@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge'
+// import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -12,7 +12,7 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
-	DropdownMenuItem,
+	// DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
@@ -20,17 +20,22 @@ import {
 import {
 	Table,
 	TableBody,
-	TableCell,
+	// TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { File, ListFilter, MoreHorizontal, PlusCircle } from 'lucide-react'
-import { useState } from 'react'
+import {
+	File,
+	ListFilter,
+	//  MoreHorizontal,
+	PlusCircle,
+} from 'lucide-react'
+// import { useState } from 'react'
 
 const ProductsDashboard = () => {
-	const [products, setProducts] = useState([])
+	// const [products] = useState([])
 	return (
 		<main className='grid items-start flex-1 gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
 			<Tabs defaultValue='all'>
@@ -100,7 +105,7 @@ const ProductsDashboard = () => {
 									</TableRow>
 								</TableHeader>
 								<TableBody>
-									{
+									{/* {
 										// Table of products goes here
 										products.map((product) => (
 											<TableRow>
@@ -122,7 +127,7 @@ const ProductsDashboard = () => {
 												<TableCell>{product.price}</TableCell>
 												<TableCell>{product.quantity}</TableCell>
 												<TableCell className='hidden md:table-cell'>
-													{product.createdAt}
+													{product?.createdAt}
 												</TableCell>
 												<TableCell>
 													<DropdownMenu>
@@ -144,7 +149,7 @@ const ProductsDashboard = () => {
 												</TableCell>
 											</TableRow>
 										))
-									}
+									} */}
 								</TableBody>
 							</Table>
 						</CardContent>

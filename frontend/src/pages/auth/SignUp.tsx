@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { z } from 'zod'
+// import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -12,15 +12,18 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-const ivalid_type_error = 'Invalid type provided. Please provide a valid type.'
-const required_error = 'This field is required.'
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const ivalid_type_error = 'Invalid type provided. Please provide a valid type.'
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const required_error = 'This field is required.'
 
-const SignUpSchema = z.object({
-	firstName: z.string(),
-	lastName: z.string(),
-	email: z.string().email('Invalid email address'),
-	password: z.string(),
-})
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const SignUpSchema = z.object({
+// 	firstName: z.string(),
+// 	lastName: z.string(),
+// 	email: z.string().email('Invalid email address'),
+// 	password: z.string(),
+// })
 
 const SignUp = () => {
 	return (
