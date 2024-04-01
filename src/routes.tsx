@@ -43,7 +43,7 @@ const routes = createBrowserRouter([
 		element: <SignUp />,
 	},
 	{
-		path: 'admin',
+		path: '/admin',
 		element: <AdminDashboard />,
 		errorElement: <div>Ops there was an error</div>,
 		children: [
