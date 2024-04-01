@@ -11,14 +11,16 @@ import {
 } from '@/pages'
 
 import Layout from './Layout'
+import { getProductsLoader } from './utils/api/actions'
 
 const routes = createBrowserRouter([
 	{
 		path: '/',
 		element: <Layout />,
 		errorElement: <Layout />,
+
 		children: [
-			{ element: <Home />, index: true },
+			{ element: <Home />, action: getProductsLoader, index: true },
 			{ path: 'product', element: <About /> },
 			{ path: 'about', element: <About /> },
 			{
