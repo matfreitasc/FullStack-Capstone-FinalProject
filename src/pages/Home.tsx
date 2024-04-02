@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {
 	Carousel,
 	CarouselContent,
@@ -7,24 +7,39 @@ import {
 	CarouselPrevious,
 } from '@/components/ui/carousel'
 import SampleProduct from '@/assets/Headphones.webp'
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
+
+interface ProductType {
+	id: string
+	name: string
+	description: string
+	category_id: number
+	price: number
+	quantity: number
+	available: boolean
+	image_url: string
+	created_at: string
+	updated_at: string
+}
 
 const Home = () => {
+	const products = useLoaderData() as ProductType[]
+	console.log(products)
 	return (
 		<main className='flex flex-col justify-center gap-y-10 '>
 			<Carousel className='relative w-full group'>
 				<CarouselContent className=''>
-					{Array.from({ length: 2 }).map((_, index) => (
-						<CarouselItem key={index}>
-							<Link to={`/product/${index}`}>
+					{products?.map((product: ProductType) => (
+						<CarouselItem key={product.id}>
+							<Link to={`/product/${product.id}`}>
 								<Card className='relative border-none rounded-none'>
 									<CardContent className='relative z-10 flex flex-col items-center justify-center p-6 aspect-video '>
 										<span className='px-6 py-2 font-sans text-4xl italic font-semibold bg-white rounded-md bg-opacity-15 text-muted-foreground'>
-											{index + 1}
+											{product.name}
 										</span>
 									</CardContent>
 									<img
-										src={SampleProduct}
+										src={product.image_url}
 										alt='Headphones'
 										className='absolute top-0 left-0 z-0 object-cover w-full opacity-95'
 									/>
@@ -54,21 +69,22 @@ const Home = () => {
 					</Link>
 				</div>
 				<div className='grid grid-cols-3 gap-y-4 px-4 mt-20 justify-items-center'>
-					{Array.from({ length: 12 }).map((_, index) => (
+					{products.map((product: ProductType, index) => (
 						<Card
-							key={index}
+							key={product.id}
 							className={`${
 								index % 3 === 1 ? 'transform -translate-y-14' : 'translate-y-4'
-							} h-[500px] w-[368px] overflow-hidden relative text-white text-center flex flex-col justify-between`}>
-							<CardHeader className='relative z-20 bg-slate-100 bg-opacity-10'>
-								Card Header
+							} h-[500px] w-[368px] overflow-hidden relative text-black text-center flex flex-col justify-between`}>
+							<CardHeader className='relative z-20 bg-slate-700 bg-opacity-50 text-3xl font-semibold p-2'>
+								{product.name}
 							</CardHeader>
-							<CardContent className='relative z-20 bg-slate-100 bg-opacity-10 items-center p-3 '>
-								Card Content
-							</CardContent>
-							<Link to={`/product/${index}`} className='absolute inset-0 z-10'>
+
+							<Link
+								to={`/product/${product.id}`}
+								className='absolute inset-0 z-10'
+								aria-label={`View ${product.name} product details`}>
 								<img
-									src={SampleProduct}
+									src={product.image_url}
 									alt=''
 									className='absolute top-0 left-0 z-0 object-cover w-full h-full'
 								/>

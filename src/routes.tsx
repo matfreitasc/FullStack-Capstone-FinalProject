@@ -20,7 +20,7 @@ const routes = createBrowserRouter([
 		errorElement: <Layout />,
 
 		children: [
-			{ element: <Home />, action: getProductsLoader, index: true },
+			{ element: <Home />, loader: getProductsLoader, index: true },
 			{ path: 'product', element: <About /> },
 			{ path: 'about', element: <About /> },
 			{

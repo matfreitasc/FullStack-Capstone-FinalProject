@@ -3,9 +3,7 @@ import axios from './axios'
 // all users can access
 const getProductsLoader = async () => {
 	const { data } = await axios.get('/products')
-	console.log(data)
-	const products = data
-	return products
+	return data
 }
 
 // get single product
