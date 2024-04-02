@@ -8,11 +8,11 @@ import {
 	Login,
 	SignUp,
 	Home,
+	Product,
 } from '@/pages'
 
 import Layout from './Layout'
-import { getProductsLoader } from './utils/api/actions'
-
+import { getProductsLoader, getProductLoader } from './utils/api/actions'
 const routes = createBrowserRouter([
 	{
 		path: '/',
@@ -21,7 +21,13 @@ const routes = createBrowserRouter([
 
 		children: [
 			{ element: <Home />, loader: getProductsLoader, index: true },
-			{ path: 'product', element: <About /> },
+			{
+				path: 'product/:id',
+				loader: ({ params }) => {
+					return getProductLoader(params.id)
+				},
+				element: <Product />,
+			},
 			{ path: 'about', element: <About /> },
 			{
 				path: 'profile',

@@ -7,7 +7,10 @@ const getProductsLoader = async () => {
 }
 
 // get single product
-const getProductLoader = async () => {}
+const getProductLoader = async (id: string | unknown) => {
+	const { data } = await axios.get(`/products/${id}`)
+	return data
+}
 
 // user must be admin
 const getAllProductsLoader = async () => {}

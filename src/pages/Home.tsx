@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
 	Carousel,
 	CarouselContent,
@@ -6,7 +6,6 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '@/components/ui/carousel'
-import SampleProduct from '@/assets/Headphones.webp'
 import { Link, useLoaderData } from 'react-router-dom'
 
 interface ProductType {
@@ -24,7 +23,6 @@ interface ProductType {
 
 const Home = () => {
 	const products = useLoaderData() as ProductType[]
-	console.log(products)
 	return (
 		<main className='flex flex-col justify-center gap-y-10 '>
 			<Carousel className='relative w-full group'>
