@@ -80,7 +80,8 @@ export function Login() {
 		await axios
 			.post('/auth/login', values)
 			.then((res) => {
-				const data = res.data
+				console.log(res)
+				const data = res.data.user
 				setAuth(data)
 				localStorage.setItem('token', JSON.stringify(data.access_token))
 				setLoadingState({ loading: true, content: 'Redirecting...' })
@@ -105,7 +106,7 @@ export function Login() {
 		<main className='h-screen justify-normal items-center flex'>
 			<Card className='max-w-sm mx-auto'>
 				<CardHeader>
-					<CardTitle className='text-2xl'>Login</CardTitle>
+					<CardTitle className='text-2xl mb-2'>Login</CardTitle>
 					<CardDescription>
 						Enter your email below to login to your account
 					</CardDescription>
