@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/carousel'
 import { Link, useLoaderData } from 'react-router-dom'
 
-interface ProductType {
+export interface ProductType {
 	id: string
 	name: string
 	description: string

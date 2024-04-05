@@ -13,9 +13,11 @@ import {
 import { Input } from '../ui/input'
 import { Link } from 'react-router-dom'
 import StoreLogo from '@/assets/logo.png'
+import useAuth from '@/hooks/useAuth'
 
 const Header = () => {
-	const user = null
+	const { auth } = useAuth()
+	const handleLogOut = () => {}
 	return (
 		<header className='sticky top-0 flex items-center h-16 gap-4 px-4 border-b bg-background md:px-6 z-10 shadow-xl'>
 			<nav className='flex-col hidden gap-6 text-lg font-medium transition-colors md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6'>
@@ -114,7 +116,7 @@ const Header = () => {
 					</div>
 				</form>
 				<DropdownMenu>
-					{user ? (
+					{auth ? (
 						<DropdownMenuTrigger asChild>
 							<Button variant='secondary' size='icon' className='rounded-full'>
 								<CircleUser className='w-5 h-5' />
@@ -135,7 +137,14 @@ const Header = () => {
 						<DropdownMenuItem>Settings</DropdownMenuItem>
 						<DropdownMenuItem>Support</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>Logout</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Button
+								variant='outline'
+								className='w-full'
+								onClick={handleLogOut}>
+								Logout
+							</Button>
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</div>

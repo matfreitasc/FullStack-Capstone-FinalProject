@@ -1,6 +1,7 @@
-import { createContext, useState, ReactNode } from 'react'
+import { createContext, useState } from 'react'
+import type { ReactNode, Dispatch, SetStateAction } from 'react'
 
-type Auth = {
+export type User = {
 	id: string
 	is_admin: boolean
 	first_name: string
@@ -16,10 +17,14 @@ type Auth = {
 	country: string
 }
 
-export const AuthContext = createContext({})
+type AuthCtx = {
+	auth: User | null
+	setAuth: Dispatch<SetStateAction<User | null>>
+}
 
-const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [auth, setAuth] = useState<Auth | null>(null)
+const AuthContext = createContext<null | AuthCtx>(null)
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+	const [auth, setAuth] = useState<User | null>(null)
 
 	return (
 		<AuthContext.Provider value={{ auth, setAuth }}>
@@ -28,4 +33,4 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 	)
 }
 
-export { AuthProvider }
+export default AuthContext
