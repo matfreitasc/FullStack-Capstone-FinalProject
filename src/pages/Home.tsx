@@ -23,6 +23,7 @@ export interface ProductType {
 
 const Home = () => {
 	const products = useLoaderData() as ProductType[]
+	document.title = 'Home'
 	return (
 		<main className='flex flex-col justify-center gap-y-10 '>
 			<Carousel className='relative w-full group'>
