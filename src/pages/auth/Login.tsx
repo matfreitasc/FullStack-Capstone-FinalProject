@@ -23,7 +23,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import useAuth from '@/hooks/useAuth'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import axios from '@/utils/api/axios'
+import { axiosPrivate } from '@/utils/api/axios'
 
 const loginSchema = z.object({
 	email: z.string().email(),
@@ -77,7 +77,7 @@ export function Login() {
 	if (!setAuth) return
 	const onSubmit = async (values: z.infer<typeof loginSchema>) => {
 		setLoadingState({ loading: true, content: 'Please wait...' })
-		await axios
+		await axiosPrivate
 			.post('/auth/login', values)
 			.then((res) => {
 				console.log(res)

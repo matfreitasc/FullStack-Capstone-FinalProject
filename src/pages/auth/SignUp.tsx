@@ -23,7 +23,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import useAuth from '@/hooks/useAuth'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import axios from '@/utils/api/axios'
+import axios, { axiosPrivate } from '@/utils/api/axios'
 
 const loginSchema = z
 	.object({
@@ -97,17 +97,22 @@ export function SignUp() {
 		await axios
 			.post('/auth/register', values)
 			.then((res) => {
-				console.log(res)
-				const data = res.data.user
-				setAuth(data)
-				localStorage.setItem('token', JSON.stringify(data.access_token))
-				setLoadingState({ loading: true, content: 'Redirecting...' })
-				new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					setLoadingState({ loading: true, content: 'Almost there...' })
-				)
-				new Promise((resolve) => setTimeout(resolve, 4000)).then(() =>
-					navigate(from, { replace: true })
-				)
+				if (res.data.user) {
+					axiosPrivate.post('/auth/login', values).then((response) => {
+						const data = response.data.user
+						console.log(data)
+						setAuth(data)
+						localStorage.setItem('token', JSON.stringify(data?.access_token))
+						setLoadingState({ loading: true, content: 'Redirecting...' })
+						new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
+							setLoadingState({ loading: true, content: 'Almost there...' })
+						)
+						new Promise((resolve) => setTimeout(resolve, 4000)).then(() =>
+							navigate(from, { replace: true })
+						)
+					})
+				}
+				throw new Error(res.data.message)
 			})
 			.catch((error) => {
 				setLoadingState({ loading: false, content: '' })
