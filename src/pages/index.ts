@@ -1,10 +1,10 @@
 // All Pages
 export * from './Home'
-export * from './DefaultLayout'
 export * from './Dashboard'
 export * from './Profile'
 export * from './Settings'
 export * from './Product'
+export * from './Products'
 
 // Error pages
 // export * from './error/error'

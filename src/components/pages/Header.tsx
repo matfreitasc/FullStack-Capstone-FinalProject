@@ -28,7 +28,7 @@ const Header = () => {
 					<span className='sr-only'>Store Logo</span>
 				</NavLink>
 				<NavLink
-					to='/products'
+					to='products'
 					className={({ isActive }) =>
 						isActive
 							? 'text-foreground hover:text-foreground'
@@ -37,7 +37,7 @@ const Header = () => {
 					Products
 				</NavLink>
 				<NavLink
-					to='/caregories/'
+					to='categories'
 					end
 					className={({ isActive }) =>
 						isActive
@@ -46,7 +46,7 @@ const Header = () => {
 					}>
 					Categories
 				</NavLink>
-				<NavLink
+				{/* <NavLink
 					to='/sales/'
 					end
 					className={({ isActive }) =>
@@ -55,7 +55,7 @@ const Header = () => {
 							: 'text-muted-foreground hover:text-foreground'
 					}>
 					Sales
-				</NavLink>
+				</NavLink> */}
 			</nav>
 			<Sheet>
 				<SheetTrigger asChild>

@@ -68,7 +68,7 @@ const Home = () => {
 					</Link>
 				</div>
 				<div className='grid grid-cols-3 gap-y-4 px-4 mt-20 justify-items-center'>
-					{products.map((product: ProductType, index) => (
+					{products.slice(0, 9).map((product: ProductType, index) => (
 						<Card
 							key={product.id}
 							className={`${

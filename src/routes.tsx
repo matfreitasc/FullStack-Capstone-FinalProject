@@ -3,16 +3,17 @@ import {
 	Settings,
 	Profile,
 	AdminDashboard,
-	About,
 	ProductsDashboard,
 	Login,
 	SignUp,
 	Home,
 	Product,
+	Products,
 } from '@/pages'
 
 import Layout from './Layout'
 import { getProductsLoader, getProductLoader } from './utils/api/actions'
+
 const routes = createBrowserRouter([
 	{
 		path: '/',
@@ -22,13 +23,17 @@ const routes = createBrowserRouter([
 		children: [
 			{ element: <Home />, loader: getProductsLoader, index: true },
 			{
+				path: 'products',
+				loader: getProductsLoader,
+				element: <Products />,
+			},
+			{
 				path: 'product/:id',
 				loader: ({ params }) => {
 					return getProductLoader(params.id)
 				},
 				element: <Product />,
 			},
-			{ path: 'about', element: <About /> },
 			{
 				path: 'profile',
 				element: <Profile />,
