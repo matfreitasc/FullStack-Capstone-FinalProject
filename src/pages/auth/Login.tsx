@@ -95,6 +95,14 @@ export function Login() {
 			.catch((error) => {
 				setLoadingState({ loading: false, content: '' })
 				const data = error.response.data
+				if (!error?.response) {
+					form.setError('email', {
+						type: 'server',
+						message:
+							'There is a problem with the server. Please try again later.',
+					})
+					return
+				}
 				form.setError('email', {
 					type: 'server',
 					message: data.message,
