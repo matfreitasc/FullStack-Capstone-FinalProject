@@ -13,13 +13,13 @@ import {
 
 import Layout from './Layout'
 import { getProductsLoader, getProductLoader } from './utils/api/actions'
+import RequireAuth from './components/RequireAuth'
 
 const routes = createBrowserRouter([
 	{
 		path: '/',
 		element: <Layout />,
 		errorElement: <Layout />,
-
 		children: [
 			{ element: <Home />, loader: getProductsLoader, index: true },
 			{
@@ -35,9 +35,13 @@ const routes = createBrowserRouter([
 				element: <Product />,
 			},
 			{
-				path: 'profile',
-				element: <Profile />,
+				element: <RequireAuth />,
 				children: [
+					{
+						path: 'profile',
+						element: <Profile />,
+						index: true,
+					},
 					{
 						path: 'settings',
 						element: <Settings />,
