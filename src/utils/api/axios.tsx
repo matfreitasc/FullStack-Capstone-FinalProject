@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const baseUrl = 'https://block-37-unit-4-career-simulation.onrender.com/api' || process.env.API_URL || 'http://localhost:3000/
+const baseUrl =
+	'https://block-37-unit-4-career-simulation.onrender.com/api' ||
+	process.env.API_URL
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default axios.create({
