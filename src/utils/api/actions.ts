@@ -1,8 +1,8 @@
-import axios, { axiosPrivate } from './axios'
+import axios from './axios'
 
 // all users can access
 const getProductsLoader = async () => {
-	const { data } = await axiosPrivate.get('/products')
+	const { data } = await axios.get('/products')
 	return data
 }
 
