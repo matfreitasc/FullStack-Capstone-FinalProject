@@ -8,14 +8,16 @@ const baseUrl =
 export default axios.create({
 	baseURL: baseUrl,
 	headers: {
+		'Access-Control-Allow-Origin': '*',
 		'Content-type': 'application/json',
 	},
 })
 
 export const axiosPrivate = axios.create({
 	baseURL: baseUrl,
+	withCredentials: true,
 	headers: {
+		'Access-Control-Allow-Origin': '*',
 		'Content-type': 'application/json',
-		withCredentials: true,
 	},
 })

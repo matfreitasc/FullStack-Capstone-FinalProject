@@ -3,8 +3,9 @@ import AuthContext from '@/context/AuthProvider'
 
 const useAuth = () => {
 	const authContext = useContext(AuthContext)
-	const auth = authContext?.auth
-	const setAuth = authContext?.setAuth
-	return { auth, setAuth }
+	if (!authContext) {
+		throw new Error(`useAuthContext must be used within an AuthContext`)
+	}
+	return authContext
 }
 export default useAuth

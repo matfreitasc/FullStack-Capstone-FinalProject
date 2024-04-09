@@ -36,7 +36,7 @@ const Header = () => {
 					}>
 					Products
 				</NavLink>
-				<NavLink
+				{/* <NavLink
 					to='categories'
 					end
 					className={({ isActive }) =>
@@ -45,7 +45,7 @@ const Header = () => {
 							: 'text-muted-foreground hover:text-foreground'
 					}>
 					Categories
-				</NavLink>
+				</NavLink> */}
 				{/* <NavLink
 					to='/sales/'
 					end

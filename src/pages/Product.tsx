@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useLoaderData } from 'react-router-dom'
 
 interface ProductType {
@@ -17,13 +18,45 @@ const Product = () => {
 	const product = useLoaderData() as ProductType
 	console.log(product)
 	return (
-		<div>
-			<h1>{product.name}</h1>
-			<p>{product.description}</p>
-			<p>${product.price}</p>
-			<img src={product.image_url} alt={product.name} />
-			<button>Add to Cart</button>
-		</div>
+		<main className='flex flex-row h-dvh w-full p-10 '>
+			<section className='grid grid-cols-3 gap-y-4 align-middle justify-items-center max-h-[800px] w-[50%] '>
+				<img
+					src={product.image_url}
+					alt={product.name}
+					className='aspect-square w-[500px] col-span-3 rounded-xl border bg-card text-card-foreground shadow'
+				/>
+				<img
+					src={product.image_url}
+					alt={product.name}
+					className='aspect-square w-[100px] rounded-md border bg-card text-card-foreground shadow'
+				/>
+				<img
+					src={product.image_url}
+					alt={product.name}
+					className='aspect-square w-[100px] rounded-md border bg-card text-card-foreground shadow'
+				/>
+				<img
+					src={product.image_url}
+					alt={product.name}
+					className='aspect-square w-[100px] rounded-md border bg-card text-card-foreground shadow'
+				/>
+			</section>
+			<section className=' w-[50%] flex flex-col gap-16'>
+				<h1 className=' whitespace-nowrap text-3xl font-semibold tracking-tight'>
+					{product.name}
+				</h1>
+				<p className='whitespace-pre-wrap text-md font-light tracking-tight text-start max-w-[500px]'>
+					{product.description}
+				</p>
+
+				<div className='flex flex-row justify-between'>
+					<Button variant='outline' className='bg-black text-background gap-2'>
+						Add To Cart:{' '}
+						<span aria-label='product price'>${product.price}</span>
+					</Button>
+				</div>
+			</section>
+		</main>
 	)
 }
 
