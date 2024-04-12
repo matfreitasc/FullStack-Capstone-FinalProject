@@ -14,6 +14,7 @@ import {
 import Layout from './Layout'
 import { getProductsLoader, getProductLoader } from './utils/api/actions'
 import RequireAuth from './components/RequireAuth'
+import PersistLogin from './components/PersistLogin'
 
 const routes = createBrowserRouter([
 	{
@@ -60,16 +61,28 @@ const routes = createBrowserRouter([
 		element: <SignUp />,
 	},
 	{
-		path: 'admin',
-		element: <AdminDashboard />,
-		errorElement: <div>Ops there was an error</div>,
+		element: <PersistLogin />,
 		children: [
 			{
-				path: 'dashboard',
+				path: 'admin',
+				element: <AdminDashboard />,
+				errorElement: <div>Ops there was an error</div>,
 				children: [
 					{
-						path: 'products',
-						element: <ProductsDashboard />,
+						path: 'dashboard',
+						children: [
+							{
+								path: 'products',
+								element: <ProductsDashboard />,
+							},
+							{
+								path: 'products/:id',
+								loader: ({ params }) => {
+									return getProductLoader(params.id)
+								},
+								element: <Product />,
+							},
+						],
 					},
 				],
 			},

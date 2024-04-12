@@ -60,7 +60,7 @@ export function Login() {
 		loading: false,
 		content: 'Pleaes wait...',
 	})
-	const { setAuth } = useAuth()
+	const { setAuth, setUser } = useAuth()
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -82,7 +82,8 @@ export function Login() {
 			.then((res) => {
 				console.log(res)
 				const data = res.data.user
-				setAuth(data)
+				setAuth(data.access_token)
+				setUser(data)
 				localStorage.setItem('token', JSON.stringify(data.access_token))
 				setLoadingState({ loading: true, content: 'Redirecting...' })
 				new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>

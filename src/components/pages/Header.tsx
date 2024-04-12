@@ -14,6 +14,7 @@ import { Input } from '../ui/input'
 import { Link } from 'react-router-dom'
 import StoreLogo from '@/assets/logo.png'
 import useAuth from '@/hooks/useAuth'
+import Cart from '../Cart'
 
 const Header = () => {
 	const { auth } = useAuth()
@@ -36,26 +37,6 @@ const Header = () => {
 					}>
 					Products
 				</NavLink>
-				{/* <NavLink
-					to='categories'
-					end
-					className={({ isActive }) =>
-						isActive
-							? 'text-foreground hover:text-foreground'
-							: 'text-muted-foreground hover:text-foreground'
-					}>
-					Categories
-				</NavLink> */}
-				{/* <NavLink
-					to='/sales/'
-					end
-					className={({ isActive }) =>
-						isActive
-							? 'text-foreground hover:text-foreground'
-							: 'text-muted-foreground hover:text-foreground'
-					}>
-					Sales
-				</NavLink> */}
 			</nav>
 			<Sheet>
 				<SheetTrigger asChild>
@@ -105,7 +86,8 @@ const Header = () => {
 				</SheetContent>
 			</Sheet>
 			<div className='flex items-center w-full gap-4 md:ml-auto md:gap-2 lg:gap-4'>
-				<form className='flex-1 ml-auto sm:flex-initial'>
+				<Cart />
+				<form className='flex-1 sm:flex-initial'>
 					<div className='relative'>
 						<Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
 						<Input
