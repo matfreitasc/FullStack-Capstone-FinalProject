@@ -9,10 +9,15 @@ import {
 	Home,
 	Product,
 	Products,
+	Cart,
 } from '@/pages'
 
 import Layout from './Layout'
-import { getProductsLoader, getProductLoader } from './utils/api/actions'
+import {
+	getProductsLoader,
+	getProductLoader,
+	getCartLoader,
+} from './utils/api/actions'
 import RequireAuth from './components/RequireAuth'
 import PersistLogin from './components/PersistLogin'
 
@@ -63,6 +68,11 @@ const routes = createBrowserRouter([
 	{
 		element: <PersistLogin />,
 		children: [
+			{
+				path: 'cart',
+				loader: getCartLoader,
+				element: <Cart />,
+			},
 			{
 				path: 'admin',
 				element: <AdminDashboard />,

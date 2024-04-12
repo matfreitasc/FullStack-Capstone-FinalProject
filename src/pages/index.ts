@@ -5,6 +5,7 @@ export * from './Profile'
 export * from './Settings'
 export * from './Product'
 export * from './Products'
+export * from './Cart'
 
 // Error pages
 // export * from './error/error'

@@ -1,5 +1,9 @@
 import { Button } from '@/components/ui/button'
+import { Toaster } from '@/components/ui/toaster'
+import useCart from '@/hooks/useCart'
+import { axiosPrivate } from '@/utils/api/axios'
 import { useLoaderData } from 'react-router-dom'
+import { useToast } from '@/components/ui/use-toast'
 
 interface ProductType {
 	id: string
@@ -16,7 +20,29 @@ interface ProductType {
 
 const Product = () => {
 	const product = useLoaderData() as ProductType
-	console.log(product)
+	const { toast } = useToast()
+	const { setCartItems } = useCart()
+	const handleAddToCart = async () => {
+		axiosPrivate
+			.post(
+				'/cart',
+				{ product_id: product.id, quantity: 1 },
+				{
+					headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+				}
+			)
+			.then(
+				(response) => {
+					setCartItems(response.data.cart.cartItems)
+					toast({
+						title: 'Product Added to Cart',
+					})
+				},
+				(error) => {
+					console.error(error)
+				}
+			)
+	}
 	return (
 		<main className='flex flex-row h-dvh w-full p-10 '>
 			<section className='grid grid-cols-3 gap-y-4 align-middle justify-items-center max-h-[800px] w-[50%] '>
@@ -50,12 +76,16 @@ const Product = () => {
 				</p>
 
 				<div className='flex flex-row justify-between'>
-					<Button variant='outline' className='bg-black text-background gap-2'>
+					<Button
+						variant='outline'
+						className='bg-black text-background gap-2'
+						onClick={handleAddToCart}>
 						Add To Cart:{' '}
 						<span aria-label='product price'>${product.price}</span>
 					</Button>
 				</div>
 			</section>
+			<Toaster />
 		</main>
 	)
 }

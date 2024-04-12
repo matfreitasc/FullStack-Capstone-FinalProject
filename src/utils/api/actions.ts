@@ -1,4 +1,4 @@
-import axios from './axios'
+import axios, { axiosPrivate } from './axios'
 
 // all users can access
 const getProductsLoader = async () => {
@@ -15,4 +15,20 @@ const getProductLoader = async (id: string | unknown) => {
 // user must be admin
 const getAllProductsLoader = async () => {}
 
-export { getProductsLoader, getProductLoader, getAllProductsLoader }
+// get cart
+const getCartLoader = async () => {
+	const token = localStorage.getItem('token')
+	const { data } = await axiosPrivate.get(`/cart/`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	})
+	return data
+}
+
+export {
+	getProductsLoader,
+	getProductLoader,
+	getAllProductsLoader,
+	getCartLoader,
+}

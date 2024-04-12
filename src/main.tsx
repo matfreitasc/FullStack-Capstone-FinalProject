@@ -4,14 +4,15 @@ import { RouterProvider } from 'react-router'
 import { AuthProvider } from './context/AuthProvider'
 import './index.css'
 import routes from './routes'
-import ThemeProvider from './context/ThemeProvider'
+import ThemeProvider from '@/context/ThemeProvider'
+import { CartProvider } from '@/context/CartProvider'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<ThemeProvider>
-			<AuthProvider>
+	<ThemeProvider>
+		<AuthProvider>
+			<CartProvider>
 				<RouterProvider router={routes} />
-			</AuthProvider>
-		</ThemeProvider>
-	</React.StrictMode>
+			</CartProvider>
+		</AuthProvider>
+	</ThemeProvider>
 )
