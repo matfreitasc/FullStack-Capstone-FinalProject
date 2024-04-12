@@ -18,16 +18,20 @@ export type User = {
 }
 
 type AuthCtx = {
-	auth: User | null
-	setAuth: Dispatch<SetStateAction<User | null>>
+	auth: string | null
+	user: User | null
+	setAuth: Dispatch<SetStateAction<string | null>>
+	setUser: Dispatch<SetStateAction<User | null>>
 }
 
 const AuthContext = createContext<null | AuthCtx>(null)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [auth, setAuth] = useState<User | null>(null)
-
+	const [auth, setAuth] = useState<string | null>(
+		localStorage.getItem('token') || null
+	)
+	const [user, setUser] = useState<User | null>(null)
 	return (
-		<AuthContext.Provider value={{ auth, setAuth }}>
+		<AuthContext.Provider value={{ auth, setAuth, user, setUser }}>
 			{children}
 		</AuthContext.Provider>
 	)
