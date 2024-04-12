@@ -233,11 +233,19 @@ export function SignUp() {
 							Login with Google
 						</Button> */}
 						</form>
-						<div className='mt-4 text-sm text-center'>
-							Already have an account?{' '}
-							<Link to='/login' className='underline'>
-								Login
-							</Link>
+						<div className='flex flex-row flex-nowrap'>
+							<div className='mt-4 text-sm text-start'>
+								Don&apos;t have an account?{' '}
+								<Link to='/signup' className='underline'>
+									Sign up
+								</Link>
+							</div>
+							<div className='mt-4 text-sm text-end'>
+								Return to homepage?{' '}
+								<Link to='/' className='underline'>
+									Home
+								</Link>
+							</div>
 						</div>
 					</Form>
 				</CardContent>
