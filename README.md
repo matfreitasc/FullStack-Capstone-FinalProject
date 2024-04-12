@@ -1,30 +1,13 @@
-# React + TypeScript + Vite
+Website url: [https://capstone.matfreitas.dev/](https://capstone.matfreitas.dev/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This project is the final project of the FullStack bootcamp. Challenge was to create a fullstack application using the technologies learned during the course. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a fully functional e-commerce website. It has a landing page, a product page, a cart page, a checkout page and a confirmation page. The user can add products to the cart, remove products from the cart, increase or decrease the quantity of products in the cart, and checkout. The user can also see the details of a product by clicking on the product card.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Frontend: React (Typescript), TailwindCSS, Axios, React Router
+- Backend: Node.js, Express, Postgres, JWT, Bcrypt, Cors
+  
