@@ -102,7 +102,7 @@ export function SignUp() {
 						const data = response.data.user
 						console.log(data)
 						setAuth(data)
-						localStorage.setItem('token', JSON.stringify(data?.access_token))
+						localStorage.setItem('token', data?.access_token)
 						setLoadingState({ loading: true, content: 'Redirecting...' })
 						new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
 							setLoadingState({ loading: true, content: 'Almost there...' })

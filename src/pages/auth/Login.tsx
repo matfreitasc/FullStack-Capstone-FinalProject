@@ -84,7 +84,7 @@ export function Login() {
 				const data = res.data.user
 				setAuth(data.access_token)
 				setUser(data)
-				localStorage.setItem('token', JSON.stringify(data.access_token))
+				localStorage.setItem('token', data.access_token)
 				setLoadingState({ loading: true, content: 'Redirecting...' })
 				new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
 					setLoadingState({ loading: true, content: 'Almost there...' })
