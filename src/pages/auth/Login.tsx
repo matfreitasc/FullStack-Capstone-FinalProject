@@ -170,15 +170,21 @@ export function Login() {
 									{loadingState.content}
 								</Button>
 							)}
-							{/* <Button variant='outline' className='w-full'>
-							Login with Google
-						</Button> */}
 						</form>
-						<div className='mt-4 text-sm text-center'>
-							Don&apos;t have an account?{' '}
-							<Link to='/signup' className='underline'>
-								Sign up
-							</Link>
+
+						<div className='flex flex-row flex-nowrap'>
+							<div className='mt-4 text-sm text-start'>
+								Don&apos;t have an account?{' '}
+								<Link to='/signup' className='underline'>
+									Sign up
+								</Link>
+							</div>
+							<div className='mt-4 text-sm text-end'>
+								Return to homepage?{' '}
+								<Link to='/' className='underline'>
+									Home
+								</Link>
+							</div>
 						</div>
 					</Form>
 				</CardContent>
