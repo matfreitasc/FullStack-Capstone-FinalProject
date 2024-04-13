@@ -8,7 +8,8 @@ import {
 } from '@/components/ui/carousel'
 import { Link, useLoaderData } from 'react-router-dom'
 
-export interface ProductType {
+export type ProductType = {
+	orderedQuantity: number
 	id: string
 	name: string
 	description: string
@@ -33,7 +34,7 @@ const Home = () => {
 							<Link to={`/product/${product.id}`}>
 								<Card className='relative border-none rounded-none'>
 									<CardContent className='relative z-10 flex flex-col items-center justify-center p-6 aspect-video '>
-										<span className='px-6 py-2 font-sans text-4xl italic font-semibold bg-white rounded-md bg-opacity-15 text-muted-foreground'>
+										<span className='px-6 py-2 font-sans text-7xl italic font-semibold bg-foreground rounded bg-opacity-15 text-background'>
 											{product.name}
 										</span>
 									</CardContent>

@@ -4,7 +4,7 @@ import useRefreshToken from '@/hooks/useRefreshToken'
 import useAuth from '@/hooks/useAuth'
 
 const PersistLogin = () => {
-	const { auth } = useAuth()
+	const { user } = useAuth()
 	const refresh = useRefreshToken()
 	const [loading, setLoading] = useState(true)
 
@@ -18,7 +18,7 @@ const PersistLogin = () => {
 				setLoading(false)
 			}
 		}
-		!auth ? verifyUser() : setLoading(false)
+		!user ? verifyUser() : setLoading(false)
 	}, [])
 
 	return <>{loading ? <h1>Loading...</h1> : <Outlet />}</>

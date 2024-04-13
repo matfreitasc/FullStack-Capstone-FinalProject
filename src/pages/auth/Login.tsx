@@ -80,7 +80,7 @@ export function Login() {
 		await axiosPrivate
 			.post('/auth/login', values)
 			.then((res) => {
-				console.log(res)
+
 				const data = res.data.user
 				setAuth(data.access_token)
 				setUser(data)

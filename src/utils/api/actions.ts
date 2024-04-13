@@ -23,7 +23,7 @@ const getCartLoader = async () => {
 			Authorization: `Bearer ${token}`,
 		},
 	})
-	return data
+	return data.cart
 }
 
 export {
