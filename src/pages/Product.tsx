@@ -4,6 +4,7 @@ import useCart from '@/hooks/useCart'
 import { axiosPrivate } from '@/utils/api/axios'
 import { useLoaderData } from 'react-router-dom'
 import { useToast } from '@/components/ui/use-toast'
+import useAuth from '@/hooks/useAuth'
 
 interface ProductType {
 	id: string
@@ -20,6 +21,7 @@ interface ProductType {
 
 const Product = () => {
 	const product = useLoaderData() as ProductType
+	const { auth } = useAuth()
 	const { toast } = useToast()
 	const { setCartItems } = useCart()
 	const handleAddToCart = async () => {
@@ -76,13 +78,22 @@ const Product = () => {
 				</p>
 
 				<div className='flex flex-row justify-between'>
-					<Button
-						variant='outline'
-						className='bg-black text-background gap-2'
-						onClick={handleAddToCart}>
-						Add To Cart:{' '}
-						<span aria-label='product price'>${product.price}</span>
-					</Button>
+					{auth ? (
+						<Button
+							variant='outline'
+							className='bg-black text-background gap-2'
+							onClick={handleAddToCart}>
+							Add To Cart:{' '}
+							<span aria-label='product price'>${product.price}</span>
+						</Button>
+					) : (
+						<Button
+							variant='ghost'
+							disabled
+							className='bg-black text-background gap-2'>
+							Login to Add to Cart
+						</Button>
+					)}
 				</div>
 			</section>
 			<Toaster />
