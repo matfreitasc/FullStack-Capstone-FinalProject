@@ -10,4 +10,5 @@ This project is a fully functional e-commerce website. It has a landing page, a 
 
 - Frontend: React (Typescript), TailwindCSS, Axios, React Router
 - Backend: Node.js, Express, Postgres, JWT, Bcrypt, Cors
-  
+
+Backend is located in [https://github.com/matfreitasc/lock-37-Unit-4-Career-Simulation](https://github.com/matfreitasc/lock-37-Unit-4-Career-Simulation)
