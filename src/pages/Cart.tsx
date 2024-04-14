@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { Button } from '@/components/ui/button'
 
 import {
 	Card,
@@ -12,7 +12,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import {
 	Form,
 	FormControl,
@@ -22,12 +21,13 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
-import { getProductLoader } from '@/utils/api/actions'
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { CartData, CartItem } from '@/context/CartProvider'
-import { ProductType } from './Home'
-import { axiosPrivate } from '@/utils/api/axios'
 import useAuth from '@/hooks/useAuth'
+import { getProductLoader } from '@/utils/api/actions'
+import { axiosPrivate } from '@/utils/api/axios'
+import { useEffect, useState } from 'react'
+import { ProductType } from './Home'
 
 const CheckoutSchema = z.object({
 	email: z.string().email(),
