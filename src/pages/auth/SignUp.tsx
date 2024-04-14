@@ -16,14 +16,14 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import useAuth from '@/hooks/useAuth'
+import axios, { axiosPrivate } from '@/utils/api/axios'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ReloadIcon } from '@radix-ui/react-icons'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
-import useAuth from '@/hooks/useAuth'
-import { ReloadIcon } from '@radix-ui/react-icons'
-import axios, { axiosPrivate } from '@/utils/api/axios'
 
 const loginSchema = z
 	.object({
@@ -100,9 +100,7 @@ export function SignUp() {
 				if (res.data.user) {
 					axiosPrivate.post('/auth/login', values).then((response) => {
 						const data = response.data.user
-						console.log(data)
 						setAuth(data)
-						localStorage.setItem('token', data?.access_token)
 						setLoadingState({ loading: true, content: 'Redirecting...' })
 						new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
 							setLoadingState({ loading: true, content: 'Almost there...' })

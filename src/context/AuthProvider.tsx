@@ -1,5 +1,5 @@
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext, useState } from 'react'
-import type { ReactNode, Dispatch, SetStateAction } from 'react'
 
 export type User = {
 	id: string
@@ -26,9 +26,7 @@ type AuthCtx = {
 
 const AuthContext = createContext<null | AuthCtx>(null)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [auth, setAuth] = useState<string | null>(
-		localStorage.getItem('token') || null
-	)
+	const [auth, setAuth] = useState<string | null>(null)
 	const [user, setUser] = useState<User | null>(null)
 	return (
 		<AuthContext.Provider value={{ auth, setAuth, user, setUser }}>

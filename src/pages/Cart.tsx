@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import {
@@ -24,8 +24,7 @@ import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { CartData, CartItem } from '@/context/CartProvider'
 import useAuth from '@/hooks/useAuth'
-import { getProductLoader } from '@/utils/api/actions'
-import { axiosPrivate } from '@/utils/api/axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useEffect, useState } from 'react'
 import { ProductType } from './Home'
 
@@ -41,49 +40,38 @@ const USDollar = new Intl.NumberFormat('en-US', {
 })
 
 const Cart = () => {
-	const cart = useLoaderData() as CartData
 	const { user } = useAuth()
 	const [products, setProducts] = useState<ProductType[]>()
 	const [total, setTotal] = useState(0)
+	const [cart, setCart] = useState<CartData>()
+	const axiosPrivate = useAxiosPrivate()
 
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		// we will fetch each product details from the server and store it in the state
-		const fetchProducts = async () => {
-			const products = await Promise.all(
-				cart.cartItems.map(async (item: CartItem) => {
-					const response = await getProductLoader(item.product_id)
-					return response
+		const fetchData = async () => {
+			await axiosPrivate
+				.get(`/cart`)
+				.then((response) => {
+					setCart(response.data.cart)
+					setProducts(response.data.cart.cartItems)
+					const total = response.data.cart.cartItems.reduce(
+						(acc: number, cartItem: CartItem) =>
+							acc + cartItem.price * cartItem.quantity,
+						0
+					)
+					setTotal(total)
 				})
-			)
-			// we will merge the quantity of each product with the product details
-			const productsWithQuantity = products.map((product, index) => ({
-				...product,
-				orderedQuantity: cart.cartItems[index].quantity,
-			}))
-			// we will calculate the total price of the cart by multiplying the price of each product by the quantity of that product and summing them up
-			const total = productsWithQuantity.reduce(
-				(acc, product) => acc + product.price * product.orderedQuantity,
-				0
-			)
-			setTotal(total)
-			setProducts(productsWithQuantity)
+				.catch((e) => {
+					console.error(e)
+				})
 		}
-		fetchProducts()
+		fetchData()
 	}, [])
 
 	const handleUpdateCartItem = async (productId: string, quantity: number) => {
 		axiosPrivate
-			.post(
-				'/cart',
-				{ product_id: productId, quantity: quantity },
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
-				}
-			)
+			.post('/cart', { product_id: productId, quantity: quantity })
 			.then(
 				(response) => {
 					console.log(
@@ -143,85 +131,91 @@ const Cart = () => {
 										<CardContent>
 											<Table>
 												<TableBody>
-													{products?.map((product) => (
-														<TableRow key={product.id}>
-															<TableCell className='hidden sm:table-cell'>
-																<img
-																	alt='Product image'
-																	className='aspect-square rounded-md object-cover h-16'
-																	src={product.image_url}
-																/>
-															</TableCell>
-															<TableCell className='font-medium'>
-																{product.name}
-															</TableCell>
+													{products?.map(
+														(product, index) => (
+															console.log(product),
+															(
+																<TableRow key={index}>
+																	<TableCell className='hidden sm:table-cell'>
+																		<img
+																			alt='Product image'
+																			className='aspect-square rounded-md object-cover h-16'
+																			src={product.image_url}
+																		/>
+																	</TableCell>
+																	<TableCell className='font-medium'>
+																		{product.name}
+																	</TableCell>
 
-															<TableCell>${product.price}</TableCell>
-															<TableCell className='table-cell'>
-																<Input
-																	type='number'
-																	min='1'
-																	className={`w-24 text-center ${
-																		product.orderedQuantity === 0
-																			? 'text-red-500'
-																			: ''
-																	} `}
-																	defaultValue={product.orderedQuantity}
-																	// when goes out of focus, update the quantity
-																	onBlur={(e) => {
-																		handleUpdateCartItem(
-																			product.id,
-																			parseInt(e.target.value)
-																		)
-																	}}
-																	onChange={(e) => {
-																		const newQuantity = parseInt(e.target.value)
-																		// update the quantity in the state, if the quantity is 0, we will delete the product from the cart
-																		const newProducts = products.map((p) =>
-																			p.id === product.id
-																				? {
-																						...p,
-																						orderedQuantity: newQuantity,
-																						// eslint-disable-next-line no-mixed-spaces-and-tabs
-																				  }
-																				: p
-																		)
-																		setProducts(newProducts)
+																	<TableCell>${product.price}</TableCell>
+																	<TableCell className='table-cell'>
+																		<Input
+																			type='number'
+																			min='1'
+																			className={`w-24 text-center px-0 py-2 `}
+																			defaultValue={product.quantity}
+																			// when goes out of focus, update the quantity
+																			onBlur={(e) => {
+																				handleUpdateCartItem(
+																					product.product_id,
+																					parseInt(e.target.value)
+																				)
+																			}}
+																			onChange={(e) => {
+																				const newQuantity = parseInt(
+																					e.target.value
+																				)
+																				// update the quantity in the state, if the quantity is 0, we will delete the product from the cart
+																				const newProducts = products.map((p) =>
+																					p.id === product.id
+																						? {
+																								...p,
+																								quantity: newQuantity,
+																								// eslint-disable-next-line no-mixed-spaces-and-tabs
+																						  }
+																						: p
+																				)
+																				setProducts(newProducts)
 
-																		// update the total
-																		const total = newProducts.reduce(
-																			(acc, product) =>
-																				acc +
-																				product.price * product.orderedQuantity,
-																			0
-																		)
-																		setTotal(total)
-																	}}
-																/>
-															</TableCell>
-															<TableCell>
-																<Button
-																	variant='outline'
-																	className='w-24'
-																	onClick={() => {
-																		const newProducts = products.filter(
-																			(p) => p.id !== product.id
-																		)
-																		setProducts(newProducts)
-																		const total = newProducts.reduce(
-																			(acc, product) =>
-																				acc +
-																				product.price * product.orderedQuantity,
-																			0
-																		)
-																		setTotal(total)
-																		handleUpdateCartItem(product.id, 0)
-																	}}>
-																	Delete Product
-																</Button>
-															</TableCell>
-														</TableRow>
-													))}
+																				// update the total
+																				const total = newProducts.reduce(
+																					(acc, product) =>
+																						acc +
+																						product.price * product.quantity,
+																					0
+																				)
+																				setTotal(total)
+																			}}
+																		/>
+																	</TableCell>
+																	<TableCell>
+																		<Button
+																			variant='outline'
+																			className='w-24 px-2 py-1'
+																			onClick={() => {
+																				const newProducts = products.filter(
+																					(p) => p.id !== product.product_id
+																				)
+																				setProducts(newProducts)
+																				const total = newProducts.reduce(
+																					(acc, product) =>
+																						acc +
+																						product.price * product.quantity,
+																					0
+																				)
+																				setTotal(total)
+																				handleUpdateCartItem(
+																					product.product_id,
+																					0
+																				)
+																			}}>
+																			Delete Product
+																		</Button>
+																	</TableCell>
+																</TableRow>
+															)
+														)
+													)}
 												</TableBody>
 											</Table>
 										</CardContent>

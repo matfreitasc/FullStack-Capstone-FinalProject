@@ -1,5 +1,5 @@
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext, useState } from 'react'
-import type { ReactNode, Dispatch, SetStateAction } from 'react'
 
 export type CartData = {
 	id: string
@@ -12,10 +12,12 @@ export type CartData = {
 }
 
 export type CartItem = {
-	id: string
+	name: string
 	cart_id: string
 	product_id: string
 	quantity: number
+	price: number
+	image_url: string
 }
 
 type CartContextType = {

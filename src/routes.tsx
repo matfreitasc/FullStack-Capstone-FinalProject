@@ -1,25 +1,21 @@
-import { createBrowserRouter } from 'react-router-dom'
 import {
-	Settings,
-	Profile,
 	AdminDashboard,
-	ProductsDashboard,
-	Login,
-	SignUp,
+	Cart,
 	Home,
+	Login,
 	Product,
 	Products,
-	Cart,
+	ProductsDashboard,
+	Profile,
+	Settings,
+	SignUp,
 } from '@/pages'
+import { createBrowserRouter } from 'react-router-dom'
 
 import Layout from './Layout'
-import {
-	getProductsLoader,
-	getProductLoader,
-	getCartLoader,
-} from './utils/api/actions'
-import RequireAuth from './components/RequireAuth'
 import PersistLogin from './components/PersistLogin'
+import RequireAuth from './components/RequireAuth'
+import { getProductLoader, getProductsLoader } from './utils/api/actions'
 
 const routes = createBrowserRouter([
 	{
@@ -70,7 +66,6 @@ const routes = createBrowserRouter([
 		children: [
 			{
 				path: 'cart',
-				loader: getCartLoader,
 				element: <Cart />,
 			},
 			{

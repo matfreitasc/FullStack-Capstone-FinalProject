@@ -10,6 +10,7 @@ import { Link, useLoaderData } from 'react-router-dom'
 
 export type ProductType = {
 	orderedQuantity: number
+	product_id: string
 	id: string
 	name: string
 	description: string

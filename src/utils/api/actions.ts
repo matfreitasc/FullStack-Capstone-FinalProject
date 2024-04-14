@@ -1,4 +1,5 @@
-import axios, { axiosPrivate } from './axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import axios from './axios'
 
 // all users can access
 const getProductsLoader = async () => {
@@ -16,19 +17,15 @@ const getProductLoader = async (id: string | unknown) => {
 const getAllProductsLoader = async () => {}
 
 // get cart
-const getCartLoader = async () => {
-	const token = localStorage.getItem('token')
-	const { data } = await axiosPrivate.get(`/cart/`, {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	})
+const GetCartLoader = async () => {
+	const axiosPrivate = useAxiosPrivate()
+	const { data } = await axiosPrivate.get('/cart')
 	return data.cart
 }
 
 export {
-	getProductsLoader,
-	getProductLoader,
+	GetCartLoader,
 	getAllProductsLoader,
-	getCartLoader,
+	getProductLoader,
+	getProductsLoader,
 }
