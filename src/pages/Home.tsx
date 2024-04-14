@@ -74,7 +74,7 @@ const Home = () => {
 							key={product.id}
 							className={`${
 								index % 3 === 1 ? 'transform -translate-y-14' : 'translate-y-4'
-							} h-[500px] w-[368px] overflow-hidden relative text-black text-center flex flex-col justify-between`}>
+							} h-[400px] w-[300px] xl:h-[500px] xl:w-[368px] overflow-hidden relative text-black text-center flex flex-col justify-between`}>
 							<CardHeader className='relative z-20 bg-slate-700 bg-opacity-50 text-3xl font-semibold p-2'>
 								{product.name}
 							</CardHeader>

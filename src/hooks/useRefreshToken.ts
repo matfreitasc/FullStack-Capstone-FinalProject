@@ -7,6 +7,7 @@ const useRefreshToken = () => {
 		const res = await axiosPrivate.get('/auth/refresh')
 		setUser(res.data)
 		setAuth(res.data.access_token)
+		localStorage.setItem('token', res.data.access_token)
 		return res.data.access_token
 	}
 

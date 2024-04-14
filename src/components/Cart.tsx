@@ -1,25 +1,20 @@
-import { useEffect } from 'react'
-import { Button } from './ui/button'
-import { ShoppingCart } from 'lucide-react'
-import { axiosPrivate } from '@/utils/api/axios'
 import useAuth from '@/hooks/useAuth'
-
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import useCart from '@/hooks/useCart'
+import { ShoppingCart } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from './ui/button'
 
 const Cart = () => {
 	const { auth } = useAuth()
 	const { cartItems, setCartItems } = useCart()
+	const axiosPrivate = useAxiosPrivate()
+
 	useEffect(() => {
-		const token = localStorage.getItem('token')
-		if (!auth) return
 		const fetchData = async () => {
 			await axiosPrivate
-				.get(`/cart/`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				})
+				.get(`/cart/`)
 				.then((response) => {
 					setCartItems(response.data.cart.cartItems)
 				})
