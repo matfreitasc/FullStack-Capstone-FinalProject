@@ -35,7 +35,6 @@ const loginSchema = z.object({
 type LoginType = z.infer<typeof loginSchema>
 
 export function Login() {
-	// Fun stuff
 	const title = 'Login'
 	useEffect(() => {
 		document.title = title
@@ -60,7 +59,7 @@ export function Login() {
 		loading: false,
 		content: 'Pleaes wait...',
 	})
-	const { setAuth, setUser } = useAuth()
+	const { setAuth } = useAuth()
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -82,9 +81,7 @@ export function Login() {
 		await axiosPrivate
 			.post('/auth/login', values)
 			.then((res) => {
-				const data = res.data.user
-				setAuth(data.access_token)
-				setUser(data)
+				setAuth(res.data.user)
 				setLoadingState({ loading: true, content: 'Redirecting...' })
 				new Promise((resolve) => setTimeout(resolve, 1000)).then(() =>
 					setLoadingState({ loading: true, content: 'Almost there...' })

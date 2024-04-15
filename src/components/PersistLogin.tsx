@@ -2,30 +2,30 @@ import useAuth from '@/hooks/useAuth'
 import useRefreshToken from '@/hooks/useRefreshToken'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 const PersistLogin = () => {
-	const { auth } = useAuth()
+	const [loading, setLoading] = useState(true)
 	const refresh = useRefreshToken()
 
-	const [loading, setLoading] = useState(true)
-
-	const navigate = useNavigate()
-	const location = useLocation()
+	const { auth } = useAuth()
 
 	useEffect(() => {
-		const verifyUser = async () => {
+		const verifyRefreshToken = async () => {
 			try {
 				await refresh()
-			} catch (e) {
-				navigate('/login', { state: { from: location.pathname } })
+			} catch (error) {
+				console.error(error)
 			} finally {
 				setLoading(false)
 			}
 		}
-
-		!auth ? verifyUser() : setLoading(false)
+		!auth?.access_token ? verifyRefreshToken() : setLoading(false)
 	}, [])
+	useEffect(() => {
+		console.log('loading', loading)
+		console.log('auth', auth)
+	}, [loading])
 
 	return (
 		<>

@@ -40,7 +40,7 @@ const USDollar = new Intl.NumberFormat('en-US', {
 })
 
 const Cart = () => {
-	const { user } = useAuth()
+	const { auth } = useAuth()
 	const [products, setProducts] = useState<ProductType[]>()
 	const [total, setTotal] = useState(0)
 	const [cart, setCart] = useState<CartData>()
@@ -98,7 +98,7 @@ const Cart = () => {
 	const form = useForm<LoginType>({
 		resolver: zodResolver(CheckoutSchema),
 		defaultValues: {
-			email: user?.email || '',
+			email: auth?.email || '',
 		},
 	})
 

@@ -52,15 +52,7 @@ const routes = createBrowserRouter([
 			},
 		],
 	},
-	{
-		path: 'login',
-		element: <Login />,
-	},
 
-	{
-		path: 'signup',
-		element: <SignUp />,
-	},
 	{
 		element: <PersistLogin />,
 		children: [
@@ -92,6 +84,15 @@ const routes = createBrowserRouter([
 				],
 			},
 		],
+	},
+	{
+		path: 'login',
+		element: <Login />,
+	},
+
+	{
+		path: 'signup',
+		element: <SignUp />,
 	},
 ])
 
