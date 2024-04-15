@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-// const baseUrl ='https://block-37-unit-4-career-simulation.onrender.com/api'
-const baseUrl = 'http://localhost:3000/api'
+
+const baseUrl = import.meta.env.DEV
+	? 'http://localhost:3000/api'
+	: 'https://block-37-unit-4-career-simulation.onrender.com/api'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default axios.create({
