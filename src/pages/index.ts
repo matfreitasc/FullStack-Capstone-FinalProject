@@ -1,11 +1,12 @@
 // All Pages
-export * from './Home'
+export * from './Cart'
 export * from './Dashboard'
-export * from './Profile'
-export * from './Settings'
+export * from './Home'
 export * from './Product'
 export * from './Products'
-export * from './Cart'
+export * from './Profile'
+export * from './Settings'
+export * from './Success'
 
 // Error pages
 // export * from './error/error'
@@ -17,3 +18,4 @@ export * from './auth/SignUp'
 // Admin pages
 export * from './admin/AdminDashboard'
 export * from './admin/products/ProductsDashboard'
+

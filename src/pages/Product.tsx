@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/toaster'
-import useCart from '@/hooks/useCart'
-import { axiosPrivate } from '@/utils/api/axios'
-import { useLoaderData } from 'react-router-dom'
 import { useToast } from '@/components/ui/use-toast'
 import useAuth from '@/hooks/useAuth'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import useCart from '@/hooks/useCart'
+import { useLoaderData } from 'react-router-dom'
 
 interface ProductType {
 	id: string
@@ -24,26 +24,19 @@ const Product = () => {
 	const { auth } = useAuth()
 	const { toast } = useToast()
 	const { setCartItems } = useCart()
+	const axiosPrivate = useAxiosPrivate()
 	const handleAddToCart = async () => {
-		axiosPrivate
-			.post(
-				'/cart',
-				{ product_id: product.id, quantity: 1 },
-				{
-					headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-				}
-			)
-			.then(
-				(response) => {
-					setCartItems(response.data.cart.cartItems)
-					toast({
-						title: 'Product Added to Cart',
-					})
-				},
-				(error) => {
-					console.error(error)
-				}
-			)
+		axiosPrivate.post('/cart', { product_id: product.id, quantity: 1 }).then(
+			(response) => {
+				setCartItems(response.data.cart.cartItems)
+				toast({
+					title: 'Product Added to Cart',
+				})
+			},
+			(error) => {
+				console.error(error)
+			}
+		)
 	}
 	return (
 		<main className='flex flex-row h-dvh w-full p-10 '>

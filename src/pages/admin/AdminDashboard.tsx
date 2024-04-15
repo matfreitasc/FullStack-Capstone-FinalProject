@@ -1,4 +1,3 @@
-import { Link, Outlet } from 'react-router-dom'
 import {
 	Home,
 	LineChart,
@@ -9,7 +8,9 @@ import {
 	ShoppingCart,
 	Users2,
 } from 'lucide-react'
+import { Link, Outlet } from 'react-router-dom'
 
+import Sidebar from '@/components/pages/admin/Sidebar'
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -19,9 +20,6 @@ import {
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import Sidebar from '@/components/pages/admin/Sidebar'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Input } from '@/components/ui/input'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -30,6 +28,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 const AdminDashboard = () => {
 	return (

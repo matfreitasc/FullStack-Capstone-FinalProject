@@ -9,6 +9,7 @@ import {
 	Profile,
 	Settings,
 	SignUp,
+	Success,
 } from '@/pages'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
 					return getProductLoader(params.id)
 				},
 				element: <Product />,
+			},
+			{
+				path: 'success',
+				element: <Success />,
 			},
 			{
 				element: <RequireAuth />,

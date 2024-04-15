@@ -107,6 +107,16 @@ const Cart = () => {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 		console.log(values)
+		const deleteCart = await axiosPrivate.delete('/cart')
+		if (deleteCart.status === 200) {
+			navigate('/success', {
+				state: { message: 'Payment successful', email: values.email },
+			})
+		} else {
+			navigate('/error', {
+				state: { message: 'Payment failed', email: values.email },
+			})
+		}
 	}
 
 	return (
@@ -121,16 +131,16 @@ const Cart = () => {
 									<p className=''>Your cart is empty</p>
 								</div>
 							) : (
-								<div className=' mt-40 '>
+								<div className='mt-40 space-y-4'>
+									<span
+										className='text-sm  cursor-pointer bg-primary-foreground p-2 text-primary hover:text-primary-foreground hover:bg-primary hover:bg-opacity-10 rounded-md'
+										onClick={() => {
+											navigate(-1)
+										}}>
+										Back to previous page
+									</span>
 									<Card>
 										<CardHeader>
-											<span
-												className='text-sm text-start underline cursor-pointer'
-												onClick={() => {
-													navigate(-1)
-												}}>
-												Back to previous page
-											</span>
 											<CardTitle>Products</CardTitle>
 											<CardDescription>
 												Manage your products and view their sales performance.
