@@ -1,4 +1,3 @@
-import useAuth from '@/hooks/useAuth'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import useCart from '@/hooks/useCart'
 import { ShoppingCart } from 'lucide-react'
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { Button } from './ui/button'
 
 const Cart = () => {
-	const { auth } = useAuth()
 	const { cartItems, setCartItems } = useCart()
 	const axiosPrivate = useAxiosPrivate()
 
@@ -24,7 +22,7 @@ const Cart = () => {
 		}
 		fetchData()
 	}, [])
-	return auth ? (
+	return (
 		<div className='ml-auto'>
 			<Button
 				variant='secondary'
@@ -40,8 +38,6 @@ const Cart = () => {
 				</Link>
 			</Button>
 		</div>
-	) : (
-		<div className='ml-auto'></div>
 	)
 }
 

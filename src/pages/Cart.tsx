@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import {
@@ -47,6 +47,7 @@ const Cart = () => {
 	const axiosPrivate = useAxiosPrivate()
 
 	const navigate = useNavigate()
+	const location = useLocation()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -63,6 +64,13 @@ const Cart = () => {
 					setTotal(total)
 				})
 				.catch((e) => {
+					navigate('/login', {
+						state: {
+							message: 'Please login to view your cart',
+							from: location,
+							replace: true,
+						},
+					})
 					console.error(e)
 				})
 		}
@@ -131,91 +139,79 @@ const Cart = () => {
 										<CardContent>
 											<Table>
 												<TableBody>
-													{products?.map(
-														(product, index) => (
-															console.log(product),
-															(
-																<TableRow key={index}>
-																	<TableCell className='hidden sm:table-cell'>
-																		<img
-																			alt='Product image'
-																			className='aspect-square rounded-md object-cover h-16'
-																			src={product.image_url}
-																		/>
-																	</TableCell>
-																	<TableCell className='font-medium'>
-																		{product.name}
-																	</TableCell>
+													{products?.map((product, index) => (
+														<TableRow key={index}>
+															<TableCell className='hidden sm:table-cell'>
+																<img
+																	alt='Product image'
+																	className='aspect-square rounded-md object-cover h-16'
+																	src={product.image_url}
+																/>
+															</TableCell>
+															<TableCell className='font-medium'>
+																{product.name}
+															</TableCell>
 
-																	<TableCell>${product.price}</TableCell>
-																	<TableCell className='table-cell'>
-																		<Input
-																			type='number'
-																			min='1'
-																			className={`w-24 text-center px-0 py-2 `}
-																			defaultValue={product.quantity}
-																			// when goes out of focus, update the quantity
-																			onBlur={(e) => {
-																				handleUpdateCartItem(
-																					product.product_id,
-																					parseInt(e.target.value)
-																				)
-																			}}
-																			onChange={(e) => {
-																				const newQuantity = parseInt(
-																					e.target.value
-																				)
-																				// update the quantity in the state, if the quantity is 0, we will delete the product from the cart
-																				const newProducts = products.map((p) =>
-																					p.id === product.id
-																						? {
-																								...p,
-																								quantity: newQuantity,
-																								// eslint-disable-next-line no-mixed-spaces-and-tabs
-																						  }
-																						: p
-																				)
-																				setProducts(newProducts)
+															<TableCell>${product.price}</TableCell>
+															<TableCell className='table-cell'>
+																<Input
+																	type='number'
+																	min='1'
+																	className={`w-24 text-center px-0 py-2 `}
+																	defaultValue={product.quantity}
+																	// when goes out of focus, update the quantity
+																	onBlur={(e) => {
+																		handleUpdateCartItem(
+																			product.product_id,
+																			parseInt(e.target.value)
+																		)
+																	}}
+																	onChange={(e) => {
+																		const newQuantity = parseInt(e.target.value)
+																		// update the quantity in the state, if the quantity is 0, we will delete the product from the cart
+																		const newProducts = products.map((p) =>
+																			p.id === product.id
+																				? {
+																						...p,
+																						quantity: newQuantity,
+																						// eslint-disable-next-line no-mixed-spaces-and-tabs
+																				  }
+																				: p
+																		)
+																		setProducts(newProducts)
 
-																				// update the total
-																				const total = newProducts.reduce(
-																					(acc, product) =>
-																						acc +
-																						product.price * product.quantity,
-																					0
-																				)
-																				setTotal(total)
-																			}}
-																		/>
-																	</TableCell>
-																	<TableCell>
-																		<Button
-																			variant='outline'
-																			className='w-24 px-2 py-1'
-																			onClick={() => {
-																				const newProducts = products.filter(
-																					(p) => p.id !== product.product_id
-																				)
-																				setProducts(newProducts)
-																				const total = newProducts.reduce(
-																					(acc, product) =>
-																						acc +
-																						product.price * product.quantity,
-																					0
-																				)
-																				setTotal(total)
-																				handleUpdateCartItem(
-																					product.product_id,
-																					0
-																				)
-																			}}>
-																			Delete Product
-																		</Button>
-																	</TableCell>
-																</TableRow>
-															)
-														)
-													)}
+																		// update the total
+																		const total = newProducts.reduce(
+																			(acc, product) =>
+																				acc + product.price * product.quantity,
+																			0
+																		)
+																		setTotal(total)
+																	}}
+																/>
+															</TableCell>
+															<TableCell>
+																<Button
+																	variant='outline'
+																	className='w-24 px-2 py-1'
+																	onClick={() => {
+																		const newProducts = products.filter(
+																			(p) => p.id !== product.product_id
+																		)
+																		setProducts(newProducts)
+																		const total = newProducts.reduce(
+																			(acc, product) =>
+																				acc + product.price * product.quantity,
+																			0
+																		)
+																		setTotal(total)
+																		handleUpdateCartItem(product.product_id, 0)
+																	}}>
+																	Delete Product
+																</Button>
+															</TableCell>
+														</TableRow>
+													))}
 												</TableBody>
 											</Table>
 										</CardContent>

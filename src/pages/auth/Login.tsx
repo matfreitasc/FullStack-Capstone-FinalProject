@@ -64,7 +64,9 @@ export function Login() {
 
 	const navigate = useNavigate()
 	const location = useLocation()
+	const message = location.state?.message
 	const from = location.state?.from?.pathname || '/'
+	console.log(from)
 
 	const form = useForm<LoginType>({
 		resolver: zodResolver(loginSchema),
@@ -84,10 +86,10 @@ export function Login() {
 				setAuth(data.access_token)
 				setUser(data)
 				setLoadingState({ loading: true, content: 'Redirecting...' })
-				new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
+				new Promise((resolve) => setTimeout(resolve, 1000)).then(() =>
 					setLoadingState({ loading: true, content: 'Almost there...' })
 				)
-				new Promise((resolve) => setTimeout(resolve, 4000)).then(() =>
+				new Promise((resolve) => setTimeout(resolve, 3000)).then(() =>
 					navigate(from, { replace: true })
 				)
 			})
@@ -115,7 +117,9 @@ export function Login() {
 				<CardHeader>
 					<CardTitle className='text-2xl mb-2'>Login</CardTitle>
 					<CardDescription>
-						Enter your email below to login to your account
+						{message
+							? message
+							: 'Enter your email below to login to your account'}
 					</CardDescription>
 				</CardHeader>
 				<CardContent>

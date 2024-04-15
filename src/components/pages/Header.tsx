@@ -1,6 +1,9 @@
-import { NavLink } from 'react-router-dom'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import StoreLogo from '@/assets/logo.png'
+import useAuth from '@/hooks/useAuth'
+import { axiosPrivate } from '@/utils/api/axios'
 import { CircleUser, Menu, Search } from 'lucide-react'
+import { Link, NavLink } from 'react-router-dom'
+import Cart from '../Cart'
 import { Button } from '../ui/button'
 import {
 	DropdownMenu,
@@ -11,11 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { Input } from '../ui/input'
-import { Link } from 'react-router-dom'
-import StoreLogo from '@/assets/logo.png'
-import useAuth from '@/hooks/useAuth'
-import Cart from '../Cart'
-import { axiosPrivate } from '@/utils/api/axios'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 
 const Header = () => {
 	const { auth } = useAuth()
@@ -101,7 +100,7 @@ const Header = () => {
 				</SheetContent>
 			</Sheet>
 			<div className='flex items-center w-full gap-4 md:ml-auto md:gap-2 lg:gap-4'>
-				<Cart />
+				{auth ? <Cart /> : <div className='ml-auto'></div>}
 				<form className='flex-1 sm:flex-initial'>
 					<div className='relative'>
 						<Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
