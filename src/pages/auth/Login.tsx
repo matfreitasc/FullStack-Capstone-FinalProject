@@ -65,7 +65,7 @@ export function Login() {
 	const location = useLocation()
 	const message = location.state?.message
 	const from = location.state?.from?.pathname || '/'
-	console.log(from)
+
 
 	const form = useForm<LoginType>({
 		resolver: zodResolver(loginSchema),
@@ -81,6 +81,7 @@ export function Login() {
 		await axiosPrivate
 			.post('/auth/login', values)
 			.then((res) => {
+				localStorage.setItem('auth', JSON.stringify(res.data.user))
 				setAuth(res.data.user)
 				setLoadingState({ loading: true, content: 'Redirecting...' })
 				new Promise((resolve) => setTimeout(resolve, 1000)).then(() =>

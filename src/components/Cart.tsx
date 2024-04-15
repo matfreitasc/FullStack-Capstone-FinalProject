@@ -22,6 +22,7 @@ const Cart = () => {
 		}
 		fetchData()
 	}, [])
+
 	return (
 		<div className='ml-auto'>
 			<Button

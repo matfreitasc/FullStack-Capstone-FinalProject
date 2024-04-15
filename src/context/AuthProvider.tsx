@@ -24,7 +24,9 @@ type AuthCtx = {
 
 const AuthContext = createContext<null | AuthCtx>(null)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [auth, setAuth] = useState<User | null>(null)
+	const [auth, setAuth] = useState<User | null>(
+		() => JSON.parse(localStorage.getItem('auth') as string) || null
+	)
 	return (
 		<AuthContext.Provider value={{ auth, setAuth }}>
 			{children}

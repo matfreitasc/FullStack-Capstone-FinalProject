@@ -100,6 +100,7 @@ export function SignUp() {
 				if (res.data.user) {
 					axiosPrivate.post('/auth/login', values).then((response) => {
 						const data = response.data.user
+						localStorage.setItem('auth', JSON.stringify(data))
 						setAuth(data)
 						setLoadingState({ loading: true, content: 'Redirecting...' })
 						new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>

@@ -17,19 +17,15 @@ import { Input } from '../ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 
 const Header = () => {
-	const { auth } = useAuth()
+	const { auth, setAuth } = useAuth()
 	const handleLogOut = () => {
+		setAuth(null)
 		axiosPrivate
 			.post('/auth/logout')
-			.then(
-				// console.log the response
-				(response) => {
-					console.log(response)
-				}
-			)
-			.then(() => {
-				localStorage.removeItem('token')
 
+			.then(() => {
+				setAuth(null)
+				localStorage.removeItem('token')
 				window.location.href = '/'
 			})
 	}
