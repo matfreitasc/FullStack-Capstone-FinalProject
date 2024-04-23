@@ -6,11 +6,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import { Link, useLoaderData } from 'react-router-dom'
-import { ProductType } from './Home'
-// import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useState } from 'react'
+import { Link, useLoaderData } from 'react-router-dom'
+import { ProductType } from './Home'
 
 const Products = () => {
 	document.title = 'Products'
