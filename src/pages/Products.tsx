@@ -62,12 +62,9 @@ const Products = () => {
 				<h2 className='text-foreground text-2xl'>Filters</h2>
 
 				<Select
-					onValueChange={
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						(value) => {
-							setSelectedSort(value)
-						}
-					}>
+					onValueChange={(value) => {
+						setSelectedSort(value)
+					}}>
 					<SelectTrigger className='w-[250px] rounded-none border-black'>
 						<p>Sorted By:</p>
 						<SelectValue
