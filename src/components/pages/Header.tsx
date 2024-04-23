@@ -25,6 +25,7 @@ const Header = () => {
 
 			.then(() => {
 				setAuth(null)
+				localStorage.removeItem('auth')
 				localStorage.removeItem('token')
 				window.location.href = '/'
 			})
