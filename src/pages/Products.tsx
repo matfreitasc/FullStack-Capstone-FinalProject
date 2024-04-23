@@ -1,5 +1,4 @@
-import { useLoaderData } from 'react-router-dom'
-import { ProductType } from './Home'
+import { Card, CardDescription, CardFooter } from '@/components/ui/card'
 import {
 	Select,
 	SelectContent,
@@ -7,8 +6,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import { Card, CardDescription, CardFooter } from '@/components/ui/card'
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
+import { ProductType } from './Home'
 // import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useState } from 'react'
@@ -16,23 +15,37 @@ import { useState } from 'react'
 const Products = () => {
 	document.title = 'Products'
 	const products = useLoaderData() as ProductType[]
-	const listProducts = products
 
-	const sortBy = ['popular', 'price', 'name']
+	const sortBy = [
+		{
+			name: 'popular',
+			value: 'popular',
+		},
+		{
+			name: 'price low to high',
+			value: 'priceLowToHigh',
+		},
+		{
+			name: 'price high to low',
+			value: 'priceHighToLow',
+		},
+		{
+			name: 'name A to Z',
+			value: 'nameAToZ',
+		},
+		{
+			name: 'name Z to A',
+			value: 'nameZToA',
+		},
+	]
 	const [selectedSort, setSelectedSort] = useState('popular')
 
 	const sortMethods = {
-		popular: {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			method: (_a: ProductType, _b: ProductType) => 0,
-			price: {
-				method: (a: ProductType, b: ProductType) => a.price - b.price,
-			},
-			name: {
-				method: (a: ProductType, b: ProductType) =>
-					a.name.localeCompare(b.name),
-			},
-		},
+		popular: () => 0,
+		priceLowToHigh: (a: ProductType, b: ProductType) => a.price - b.price,
+		priceHighToLow: (a: ProductType, b: ProductType) => b.price - a.price,
+		nameAToZ: (a: ProductType, b: ProductType) => a.name.localeCompare(b.name),
+		nameZToA: (a: ProductType, b: ProductType) => b.name.localeCompare(a.name),
 	}
 
 	return (
@@ -48,14 +61,19 @@ const Products = () => {
 			<div className='w-full py-2 flex flex-row justify-between'>
 				<h2 className='text-foreground text-2xl'>Filters</h2>
 
-				<Select>
-					<SelectTrigger className='w-[180px] rounded-none border-black'>
+				<Select
+					onValueChange={
+						// eslint-disable-next-line @typescript-eslint/no-unused-vars
+						(value) => {
+							setSelectedSort(value)
+						}
+					}>
+					<SelectTrigger className='w-[250px] rounded-none border-black'>
 						<p>Sorted By:</p>
 						<SelectValue
 							placeholder={
-								sortBy[0].split('')[0].toUpperCase() + sortBy[0].slice(1)
+								sortBy.find((sort) => sort.value === selectedSort)?.name
 							}
-							defaultValue={sortBy[0]}
 						/>
 					</SelectTrigger>
 					<SelectContent>
@@ -63,11 +81,11 @@ const Products = () => {
 							<SelectItem
 								key={index}
 								onClick={() => {
-									setSelectedSort(sort)
+									setSelectedSort(sort.value)
 								}}
-								value={sort}
+								value={sort.value}
 								className='text-sm'>
-								{sort.split('')[0].toUpperCase() + sort.slice(1)}
+								{sort.name.charAt(0).toUpperCase() + sort.name.slice(1)}
 							</SelectItem>
 						))}
 					</SelectContent>
@@ -75,41 +93,10 @@ const Products = () => {
 			</div>
 			<Separator className='my-6' />
 			<section className='flex flex-row w-full '>
-				{/* <aside className='w-[20%] h-full space-y-4'>
-					<h3 className='text-xl text-foreground'>Categories</h3>
-
-					<div className='flex items-center space-x-2'>
-						<Checkbox id='electronics' className='rounded-none' />
-						<label
-							htmlFor='electronics'
-							className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-							Electronics
-						</label>
-					</div>
-					<Separator className='my-1' />
-					<div className='flex items-center space-x-2'>
-						<Checkbox id='services' className='rounded-none' />
-						<label
-							htmlFor='services'
-							className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-							Services
-						</label>
-					</div>
-					<Separator className='my-1' />
-					<div className='flex items-center space-x-2'>
-						<Checkbox id='Laptops' className='rounded-none' />
-						<label
-							htmlFor='Laptops'
-							className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-							Laptops
-						</label>
-					</div>
-					<Separator className='my-1' />
-				</aside> */}
 				<main className='grid grid-cols-3 gap-4 px-4  w-full'>
 					{/* List of all products */}
-					{listProducts
-						.sort(sortMethods[selectedSort as keyof typeof sortMethods].method)
+					{products
+						.sort(sortMethods[selectedSort as keyof typeof sortMethods])
 						.map((product: ProductType) => (
 							<Card
 								key={product.id}
